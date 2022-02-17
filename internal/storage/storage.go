@@ -19,10 +19,10 @@ type storage interface {
 }
 
 func (s *Storage) Get(id string) (string, error) {
-	k, ok := s.items[id]
+	value, ok := s.items[id]
 	if !ok {
 		return "", fmt.Errorf("value %s not found", id)
 	}
 
-	return k, nil
+	return value, nil
 }
