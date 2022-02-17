@@ -14,7 +14,7 @@ func NewStorage(items map[string]string) *Storage {
 	}
 }
 
-type storage interface {
+type Storager interface {
 	Get(id string) (string, error)
 }
 
