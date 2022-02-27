@@ -1,0 +1,63 @@
+---
+
+run:
+  concurrency: 4
+  timeout: 25m
+
+linters:
+  enable-all: true
+  disable:
+    - exhaustivestruct
+    - interfacer
+    - gochecknoinits
+    - golint
+    - maligned
+    - paralleltest
+    - scopelint
+    - typecheck # TODO: enable
+    - wrapcheck # TODO: enable
+    - tagliatelle # TODO: enable
+    - govet # TODO: enable
+    - wsl # TODO: enable
+    - staticcheck # TODO: enable
+    - goerr113 # TODO: enable
+
+severity:
+  default-severity: minor
+
+linters-settings:
+  funlen:
+    lines: 80
+    statements: 60
+
+  gci:
+    local-prefixes: github.com/blattaria7/go-template
+
+  godox:
+    keywords:
+      - BUG
+      - FIXME
+      - DEBUG
+
+  goimports:
+    local-prefixes: github.com/blattaria7/go-template
+
+  lll:
+    exclude: "{*"
+
+issues:
+  include:
+    - EXC0002
+
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - funlen
+        - goerr113
+        - lll
+        - testpackage
+        - wrapcheck
+    - path: logger\.go
+      linters:
+        - godox
