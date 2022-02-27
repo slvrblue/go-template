@@ -17,7 +17,7 @@ type App struct {
 }
 
 type HTTPConfig struct {
-	ServerAddr   string        `env:"addr" envDefault:"localhost:8080" valid:",required"`
+	Port         uint          `env:"port" envDefault:"8080" valid:",required"`
 	WriteTimeout time.Duration `env:"write_timeout" envDefault:"15s"`
 	ReadTimeout  time.Duration `env:"read_timeout" envDefault:"15s"`
 }

@@ -46,12 +46,12 @@ func main() {
 
 	server := &http.Server{
 		Handler:      r,
-		Addr:         cfg.HTTPConfig.ServerAddr,
+		Addr:         fmt.Sprintf(":%d", cfg.HTTPConfig.Port),
 		WriteTimeout: cfg.HTTPConfig.WriteTimeout,
 		ReadTimeout:  cfg.HTTPConfig.ReadTimeout,
 	}
 
-	log.Info("service started on:", zap.String("address", cfg.HTTPConfig.ServerAddr))
+	log.Info("service started on:", zap.Uint("port", cfg.HTTPConfig.Port))
 
 	// TODO: graceful shutdown
 	if err = server.ListenAndServe(); err != nil {

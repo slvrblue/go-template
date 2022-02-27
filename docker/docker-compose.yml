@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  # here you can add necessary things to start your service db, migration configurations
+
+  go-template:
+    image: golang:1.17-alpine
+    ports:
+      - 8080:8080
+    environment:
+      - app_name=go-template
+      - port=8080
+      - write_timeout=10s
+      - read_timeout=20s
+      - level=debug
+    volumes:
+      - ../:/app
+    working_dir: /app/cmd
+    command: go run main.go
