@@ -51,12 +51,12 @@ func main() {
 		ReadTimeout:  cfg.HTTPConfig.ReadTimeout,
 	}
 
-	log.Info("service started on:", zap.Uint("port", cfg.HTTPConfig.Port))
+	log.Debug("service started on:", zap.Uint("port", cfg.HTTPConfig.Port))
 
 	// TODO: graceful shutdown
 	if err = server.ListenAndServe(); err != nil {
 		if err := server.Shutdown(context.Background()); err != nil {
-			log.Debug("service shutting down at", zap.Time("time", time.Now()))
+			log.Info("service shutting down at", zap.Time("time", time.Now()))
 			log.Error("server shutdown error", zap.Error(err))
 		}
 	}
