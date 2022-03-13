@@ -1,4 +1,4 @@
-package repository
+package memory
 
 import (
 	"fmt"
@@ -16,10 +16,6 @@ func NewRepository(items map[string]string, logger *zap.Logger) *Repository {
 		items:  items,
 		logger: logger,
 	}
-}
-
-type Repositorier interface {
-	Get(id string) (string, error)
 }
 
 func (r *Repository) Get(id string) (string, error) {

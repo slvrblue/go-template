@@ -1,4 +1,4 @@
-package errors_template
+package errors
 
 type ServiceError struct {
 	Code    string `json:"code" example:"MY_CODE"`

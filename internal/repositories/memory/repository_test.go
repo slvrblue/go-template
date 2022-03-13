@@ -1,14 +1,13 @@
-package repository_test
+package memory_test
 
 import (
-	"context"
 	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 
-	"github.com/blattaria7/go-template/internal/repository"
+	"github.com/blattaria7/go-template/internal/repositories/memory"
 )
 
 func Test_Get(t *testing.T) {
@@ -41,9 +40,9 @@ func Test_Get(t *testing.T) {
 
 	for _, test := range testCase {
 		t.Run(test.name, func(t *testing.T) {
-			r := repository.NewRepository(test.items, zap.NewNop())
+			r := memory.NewRepository(test.items, zap.NewNop())
 
-			gotResp, err := r.Get(context.Background(), test.id)
+			gotResp, err := r.Get(test.id)
 			assert.Equal(t, test.wantResp, gotResp)
 
 			if gotResp == "" && assert.Error(t, test.wantErr, err.Error()) {

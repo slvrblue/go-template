@@ -6,6 +6,11 @@ import (
 	"github.com/caarlos0/env"
 )
 
+const (
+	RepositoryTypeFile   = "file"
+	RepositoryTypeMemory = "memory"
+)
+
 type Config struct {
 	App
 	Logger
@@ -13,7 +18,8 @@ type Config struct {
 }
 
 type App struct {
-	Name string `env:"app_name" envDefault:"go-template"`
+	Name           string `env:"app_name" envDefault:"go-template"`
+	RepositoryType string `env:"repository_type" envDefault:"memory"`
 }
 
 type HTTPConfig struct {

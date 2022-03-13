@@ -9,19 +9,22 @@ import (
 	"go.uber.org/zap"
 
 	err_template "github.com/blattaria7/go-template/internal/errors"
-	"github.com/blattaria7/go-template/internal/service"
 )
 
 type Handler struct {
-	svc    service.Servicer
+	svc    Service
 	logger *zap.Logger
 }
 
-func NewHandler(svc service.Servicer, logger *zap.Logger) *Handler {
+func NewHandler(svc Service, logger *zap.Logger) *Handler {
 	return &Handler{
 		svc:    svc,
 		logger: logger,
 	}
+}
+
+type Service interface {
+	Get(id string) (string, error)
 }
 
 type serviceResponse struct {

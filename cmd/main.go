@@ -11,8 +11,9 @@ import (
 
 	"github.com/blattaria7/go-template/config"
 	"github.com/blattaria7/go-template/internal/handlers"
-	"github.com/blattaria7/go-template/internal/repository"
-	"github.com/blattaria7/go-template/internal/service"
+	"github.com/blattaria7/go-template/internal/repositories/file"
+	"github.com/blattaria7/go-template/internal/repositories/memory"
+	"github.com/blattaria7/go-template/internal/services"
 	"github.com/blattaria7/go-template/pkg/logger"
 )
 
@@ -28,13 +29,26 @@ func main() {
 		fmt.Errorf("error initializing logger: %w", err)
 	}
 
-	// initialize your storage and storage's variables
-	items := make(map[string]string, 1)
-	items["a"] = "apple"
-	repo := repository.NewRepository(items, log)
+	var repo services.Repository
+	switch cfg.App.RepositoryType {
+	case config.RepositoryTypeFile:
+		// initialize your storage and storage's variables
+		items := make(map[string]string, 1)
+		items["1"] = "file1"
+		items["2"] = "file2"
+
+		repo = file.NewRepository(items, log)
+	case config.RepositoryTypeMemory:
+		// initialize your storage and storage's variables
+		items := make(map[string]string, 1)
+		items["1"] = "something1"
+		items["2"] = "something2"
+
+		repo = memory.NewRepository(items, log)
+	}
 
 	// initialize your service
-	svc := service.NewService(repo, log)
+	svc := services.NewService(repo, log)
 
 	// initialize your handlers
 	handler := handlers.NewHandler(svc, log)
